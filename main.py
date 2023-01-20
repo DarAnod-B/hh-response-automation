@@ -35,10 +35,8 @@ class Tag_Value(Enum):
     SUITABLE_VACANCIES = r'resume-recommendations__button_updateResume'
 
 
-def sleep_random():
-    MIN_SLEEP = 2
-    MAX_SLEEP = 3
-    time.sleep(round(random.uniform(MIN_SLEEP, MAX_SLEEP), 2))
+def sleep_random(min_sleep=2, max_sleep=3):
+    time.sleep(round(random.uniform(min_sleep, max_sleep), 2))
 
 
 def open_config_file() -> configparser.ConfigParser:
@@ -66,6 +64,45 @@ def safety_get(driver: webdriver.Chrome, url: str):
         print('Перезагрузка страницы.')
         driver.refresh()
 
+
+@contextmanager
+def open_web_driver() -> webdriver.Chrome:
+    '''
+    Открытие веб драйвера и назнвачение ему опций
+    (О них можно почитать по ссылке: https://peter.sh/experiments/chromium-command-line-switches/).
+    '''
+
+    options = Options()
+
+    options.add_argument('--log-level=3')
+    options.add_argument("--start-maximized")
+    options.add_argument("--enable-automation")
+    # options.add_argument("--headless");
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-browser-side-navigation")
+    options.add_argument("--disable-infobars")
+
+    web_driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=options,
+    )
+
+    web_driver.set_page_load_timeout(120)
+    web_driver.implicitly_wait(100)
+    web_driver.set_script_timeout(100)
+
+    try:
+        yield web_driver
+        web_driver.close()
+        sleep_random()
+        web_driver.quit()
+
+    except Exception as error:
+        web_driver.close()
+        sleep_random()
+        web_driver.quit()
+        raise Exception(error)
 
 
 def login(web_driver: webdriver.Chrome, LOGIN: str, PASSWORD: str):
@@ -115,7 +152,7 @@ def submit_to_the_vacancy_on_the_all_pages(web_driver: webdriver.Chrome):
     переход назад, к списку вакансий) и перебор всех страниц пока сущестует кнопка "Далее".
     '''
 
-    # Цикл остановится если большо нет кнопки "дальее" или появился баннер о превышении числа откликов за 24 часа. 
+     # Цикл остановится если большо нет кнопки "дальее" или появился баннер о превышении числа откликов за 24 часа. 
     while check_exists_by_xpath(
         web_driver, XPath.LINKS_TO_BUTTON_NEXT.value
     ) and not (
@@ -155,9 +192,9 @@ def main():
     LOGIN = config["Account"]["login"]
     PASSWORD = config["Account"]["password"]
     TITLE_OF_RESUME = config["Resume Options"]["title_of_resume"]
-    
-    SUBMIT_LIMIT = 200
 
+    SUBMIT_LIMIT = 200
+    
     with open_web_driver() as web_driver:
         login(web_driver, LOGIN, PASSWORD)
         resume_selection(web_driver, TITLE_OF_RESUME)
