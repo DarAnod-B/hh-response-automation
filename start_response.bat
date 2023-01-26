@@ -1,0 +1,4 @@
+
+
+python main.pyw
+pause
