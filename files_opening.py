@@ -38,7 +38,7 @@ def open_web_driver() -> webdriver.Chrome:
 
     options.add_argument('--log-level=3')
 
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument('--disable-gpu')
 
     options.add_argument(
@@ -60,7 +60,6 @@ def open_web_driver() -> webdriver.Chrome:
     options.add_argument('--disable-web-security')
     options.add_argument('--disable-features=VizDisplayCompositor')
     options.add_argument('--disable-breakpad')
-
 
     web_driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()),
