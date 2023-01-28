@@ -10,6 +10,7 @@ from pages import (
 )
 
 
+
 def main():
     logging.basicConfig(
         filename=os.path.join("reports", "mylog.log"),

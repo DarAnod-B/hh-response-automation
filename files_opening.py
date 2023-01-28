@@ -69,5 +69,6 @@ def open_web_driver() -> webdriver.Chrome:
     try:
         yield web_driver
     finally:
-        web_driver.close()
+        # web_driver.close()
+        # sleep_random()
         web_driver.quit()
