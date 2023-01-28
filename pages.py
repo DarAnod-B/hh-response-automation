@@ -30,7 +30,12 @@ def account_login(web_driver: webdriver.Chrome, USERNAME: str, PASSWORD: str):
     path_to_cookie = os.path.join(
         os.getcwd(), 'cookies', f'{USERNAME}_cookie.pkl'
     )
-
+    def resume_update():
+        update_resume_buttons = web_driver.find_elements(By.XPATH, XPath.UPDATE_RESUME_BUTTONS.value)
+        for button in update_resume_buttons:
+            button.click()
+            sleep_random()
+     
     def login_and_password_login():
         '''Login to the site with login and password.'''
 
@@ -69,6 +74,7 @@ def account_login(web_driver: webdriver.Chrome, USERNAME: str, PASSWORD: str):
             By.XPATH, XPath.LINK_TO_BUTTON_MY_RESUMES.value
         ).click()
         sleep_random()
+        resume_update()
         pickle.dump(web_driver.get_cookies(), open(path_to_cookie, "wb"))
         sleep_random()
 
@@ -84,6 +90,8 @@ def account_login(web_driver: webdriver.Chrome, USERNAME: str, PASSWORD: str):
         login_and_password_login()
 
     sleep_random()
+
+
 
 
 def selection_of_filtered_vacancies(

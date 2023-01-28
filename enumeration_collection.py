@@ -12,9 +12,10 @@ class XPath(Enum):
     BUTTON_EXPAND_LOGIN_BY_PASSWORD = r'//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div/div/div/div[1]/div[1]/div[1]/div/div[2]/div/form/div[4]/button[2]'
     BUTTON_LOGIN = r'//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div/div/div/div[1]/div[1]/div[1]/div/div[2]/form/div[4]/div/button[1]'
     BUTTON_SUBMIT = r"//span[text()='Откликнуться']/ancestor::button"
+    UPDATE_RESUME_BUTTONS = r"//span[text()='Поднять в поиске']/ancestor::button"
 
     LINK_TO_BUTTON_MY_RESUMES = r'//*[@id="HH-React-Root"]/div/div[2]/div[1]/div/div/div/div[1]/a'
-    
+
     LINKS_TO_BUTTON_SUBMIT = r"//span[text()='Откликнуться']/ancestor::a"
     LINKS_TO_BUTTON_NEXT = r"//span[text()='дальше']/ancestor::a"
     LINKS_TO_BUTTON_SEARCH_FOR_SUITABLE_VACANCIES = r"//div[contains(@data-qa-title, '{}')]//a[contains(@data-qa, 'resume-recommendations__button_updateResume')]"
@@ -39,5 +40,3 @@ class ErrorText(Enum):
         r'Among your resumes, the one you specified was not found.'
     )
     PAGE_NOT_FOUND = r'Page not found (error 404) check the link with filters (LINK_TO_THE_FILTERED_LIST) and the username you entered.'
-    
-
