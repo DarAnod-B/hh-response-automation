@@ -7,7 +7,6 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 
-from sleep_random import sleep_random
 
 
 def open_config_file() -> configparser.ConfigParser:
@@ -69,6 +68,4 @@ def open_web_driver() -> webdriver.Chrome:
     try:
         yield web_driver
     finally:
-        # web_driver.close()
-        # sleep_random()
         web_driver.quit()

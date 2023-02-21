@@ -9,5 +9,6 @@ class ExcessResponsesAvailablePerDay(Exception):
 class NoSuitableVacancies(Exception):
     pass
 
+
 class PageNotFound(Exception):
     pass

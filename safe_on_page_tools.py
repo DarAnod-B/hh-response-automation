@@ -8,7 +8,9 @@ from enumeration_collection import ErrorText
 from sleep_random import sleep_random
 
 
-def check_exists_by_xpath(web_driver: webdriver.Chrome, xpath: str) -> bool:
+def check_exists_by_xpath(
+    web_driver: webdriver.Chrome, xpath: str
+) -> bool:
     '''Check if an element exists by its Xpath.'''
     return len(web_driver.find_elements(By.XPATH, xpath)) > 0
 
