@@ -13,9 +13,9 @@ from pages import (
 def main():
     logging.basicConfig(
         filename=os.path.join("reports", "mylog.log"),
-        level=logging.WARNING,
         format="%(asctime)s %(levelname)s: %(message)s",
     )
+
     config = open_config_file()
     USERNAME = config["Account"]["username"]
     PASSWORD = config["Account"]["password"]
@@ -28,12 +28,17 @@ def main():
     path_to_cover_letter = os.path.join(
         os.getcwd(), 'cover letter', f'{USERNAME.split("@")[0]}.txt')
 
-    with open_web_driver() as web_driver:
-        account_login(web_driver, USERNAME, PASSWORD)
-        resume_update(web_driver)
-        selection_of_filtered_vacancies(web_driver, LINK_TO_THE_FILTERED_LIST)
-        submit_to_the_vacancy_on_the_all_pages(
-            web_driver, TITLE_OF_RESUME, ADD_A_COVER_LETTER, path_to_cover_letter)
+    try:
+        with open_web_driver() as web_driver:
+            account_login(web_driver, USERNAME, PASSWORD)
+            resume_update(web_driver)
+            selection_of_filtered_vacancies(web_driver, LINK_TO_THE_FILTERED_LIST)
+            submit_to_the_vacancy_on_the_all_pages(
+                web_driver, TITLE_OF_RESUME, ADD_A_COVER_LETTER, path_to_cover_letter)
+    finally:
+        logging.info(
+            f"Finish response."
+        )
 
 
 if __name__ == "__main__":

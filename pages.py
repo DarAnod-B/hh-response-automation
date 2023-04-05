@@ -89,8 +89,10 @@ def account_login(
     try:
         cookie_login()
         web_driver.refresh()
+        logging.info('Login by cookies')
     except FileNotFoundError:
         login_and_password_login()
+        logging.info('Login by login and password')
 
     sleep_random()
 
@@ -140,9 +142,8 @@ def submit_to_the_vacancy_on_the_all_pages(
 ):
     '''Respond to all "suitable jobs" for a certain one (maximum 200 per day).'''
     if ADD_A_COVER_LETTER:
-        with open(path_to_cover_letter, 'r', encoding = 'utf-8') as file:
+        with open(path_to_cover_letter, 'r', encoding='utf-8') as file:
             COVER_LETTER = file.read()
-    
 
     def choosing_a_resume_for_a_response():
         '''

@@ -12,8 +12,8 @@ class XPath(Enum):
     INPUT_COVER_LETTER_ONE_RESUME = r"//textarea[@placeholder='Напишите, почему именно ваша кандидатура должна заинтересовать работодателя']"
     INPUT_COVER_LETTER_MULT_RESUME = r"//div[text()='Сопроводительное письмо']/ancestor::div[contains(@class, 'bloko-form-row')]/textarea"
 
-    BUTTON_EXPAND_LOGIN_BY_PASSWORD = r'//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div/div/div/div[1]/div[1]/div[1]/div/div[2]/div/form/div[4]/button[2]'
-    BUTTON_LOGIN = r'//*[@id="HH-React-Root"]/div/div[3]/div[1]/div/div/div/div/div/div[1]/div[1]/div[1]/div/div[2]/form/div[4]/div/button[1]'
+    BUTTON_EXPAND_LOGIN_BY_PASSWORD = r'//button[contains(text(), "Войти с")]'
+    BUTTON_LOGIN = r'//span[text()="Войти"]/ancestor::button'
     BUTTON_SUBMIT = r"//span[text()='Откликнуться']/ancestor::button"
     BUTTONS_UPDATE_RESUME = (
         r"//span[text()='Поднять в поиске']/ancestor::button"
